@@ -12,6 +12,9 @@ module.exports = function(grunt) {
     // Time how long tasks take for build time optimizations
     require('time-grunt')(grunt);
 
+    // Deploy app to github pages
+    grunt.loadNpmTasks('grunt-gh-deploy');
+
     // Configure the app path
     var base = 'app';
 
@@ -69,6 +72,13 @@ module.exports = function(grunt) {
                     '**/*.html'
                 ]
             }
+        },
+        ghDeploy: {
+          options: {
+            repository: 'https://github.com/source-city/source-city.github.io.git',
+            deployPath: 'app',
+	    branch: 'master'
+          }
         }
     });
 

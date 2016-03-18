@@ -16,7 +16,9 @@
     "smarttabs": true,
     "trailing": true,
     "globals": {
-        "requestAnimationFrame": false,
-        "THREE": true
+        "requirejs": false,
+        "require": false,
+        "define": false,
+        "requestAnimationFrame": false
     }
 }
