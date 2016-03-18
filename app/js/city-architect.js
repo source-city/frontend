@@ -23,16 +23,17 @@ define(['vendor/three', 'city'], function (THREE, City) {
     camera.position.y = 500;
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor( 0xf5f5f5 );
 
     var light = new THREE.AmbientLight(0x404040); // soft white light
     light.castShadow = true;
     city.add(light);
 
-    var sun = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    var sun = new THREE.DirectionalLight( 0xffffff, 1.2 );
     sun.castShadow = true;
-    sun.position.set( 1, -1, 2 );
+    sun.position.set( 1, 2, 3 );
     city.add(sun);
 
     animate();

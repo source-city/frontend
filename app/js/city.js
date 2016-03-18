@@ -6,6 +6,18 @@ define(['vendor/three'], function (THREE) {
   function city() {
 
     var scene = new THREE.Scene();
+    
+      var geometry, material, mesh;
+      
+      geometry = new THREE.BoxGeometry(2000, 10, 2000);
+      material = new THREE.MeshLambertMaterial({
+        color: 0xffffff
+      });
+
+      floor = new THREE.Mesh(geometry, material);
+      floor.receiveShadow = true;
+      floor.translateY(-10);
+      scene.add(floor);
 
     scene.addBuilding = function (building) {
       
@@ -18,6 +30,7 @@ define(['vendor/three'], function (THREE) {
 
       mesh = new THREE.Mesh(geometry, material);
       mesh.receiveShadow = true;
+      mesh.translateY(building.height / 2);
       scene.add(mesh);
     };
 
