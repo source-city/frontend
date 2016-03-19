@@ -14,7 +14,7 @@ requirejs.config({
   }
 });
 
-require(['city-architect'], function (cityArchitect) {
+require(['city-architect', 'vendor/jquery'], function (cityArchitect, $) {
 
 //  var data = [
 //    {
@@ -26,50 +26,17 @@ require(['city-architect'], function (cityArchitect) {
 //    }
 //  ];
 
-  var data = [
-    { foundations: 100, height: 200},
-    { foundations: 150, height: 300},
-    { foundations: 250, height: 150},
-    { foundations: 150, height: 150},
-    { foundations: 100, height: 200},
-    { foundations: 100, height: 300},
-    { foundations: 150, height: 300},
-    { foundations: 150, height: 300},
-    { foundations: 170, height: 200},
-    { foundations: 50, height: 100},
-    { foundations: 50, height: 100},
-    { foundations: 50, height: 100},
-    { foundations: 50, height: 100},
-    { foundations: 50, height: 100},
-    { foundations: 50, height: 100},
-    { foundations: 50, height: 100},
-    { foundations: 50, height: 100},
-    { foundations: 80, height: 100},
-    { foundations: 80, height: 100},
-    { foundations: 80, height: 100},
-    { foundations: 80, height: 100},
-    { foundations: 80, height: 100},
-    { foundations: 80, height: 100},
-    { foundations: 100, height: 200},
-    { foundations: 200, height: 250},
-    { foundations: 100, height: 120},
-    { foundations: 100, height: 100},
-    { foundations: 80, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 200, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250},
-    { foundations: 90, height: 250}
-  ];
-  
-  var city = cityArchitect.buildCity(data);
-  document.body.appendChild(city);
+  $.get('http://source-city.herokuapp.com/api/metrics')
+    .done(function(data){
+    
+      var cityData = _(data).map(function (fileMetrics) {
+        return {
+          foundations : fileMetrics.metrics.dependencies,
+          height : fileMetrics.metrics.loc
+        }
+      })
+      var city = cityArchitect.buildCity(cityData);
+      document.body.appendChild(city);
+    });
 
 });

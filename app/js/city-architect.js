@@ -47,7 +47,7 @@ define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) 
   
   function layout(data){
     
-    var layout = [];
+    var layoutElements = [];
     var point = {x: 0, y: 0};
     var directions = [left, up, right, down];
     var direction = left;
@@ -56,15 +56,18 @@ define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) 
     data = _(data).sortBy(function(b){ return -b.foundations * b.height; });
     for(i=0; i<data.length; i++){
 
-      b = data[i];
+      var b = data[i];
       _.extend(b, point);
-      layout.push(b);
+      layoutElements.push(b);
 
       if(i < data.length - 1){
         point = findNextValidPoint(i, i + 1);
       }
       
-      function findNextValidPoint(branch, i){
+      
+    }
+    
+    function findNextValidPoint(branch, i){
         var n = data[i];
 
         var delta = (data[branch].foundations/2 + n.foundations/2) * 1.6;
@@ -86,9 +89,8 @@ define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) 
           return findNextValidPoint(branch-1, i);
         }
       }
-    }
     
-    return layout;
+    return layoutElements;
     
     function turnForward(direction){
       return directions[(directions.indexOf(direction) + 1) % 4];
@@ -133,7 +135,7 @@ define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) 
         return function(point){
           return (point.x < a.x + a.foundations/2 && point.x > a.x - a.foundations/2) &&
                 (point.y < a.y + a.foundations/2 && point.y > a.y - a.foundations/2);
-        }
+        };
         
       }
     }
