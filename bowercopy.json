@@ -2,13 +2,14 @@
     "libs": {
         "options": {
             "destPrefix": "app/js/vendor",
-            "clean": true
+            "clean": false
         },
         "files": {
             "three.js": "threejs/build/three.js",
             "require.js": "requirejs/require.js",
 	    "jquery.js": "jquery/dist/jquery.js",
-            "underscore.js": "underscore/underscore.js"
+            "underscore.js": "underscore/underscore.js",
+	    "virtual-dom.js": "virtual-dom/dist/virtual-dom.js"
         }
     }
 }

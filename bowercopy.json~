@@ -1,0 +1,24 @@
+{
+    "libs": {
+        "options": {
+            "destPrefix": "app/js/vendor",
+            "clean": false
+        },
+        "files": {
+            "three.js": "threejs/build/three.js",
+            "require.js": "requirejs/require.js",
+	    "jquery.js": "jquery/dist/jquery.js",
+            "underscore.js": "underscore/underscore.js"
+        }
+    },
+    "css": {
+	"options": {
+            "destPrefix": "app/css/vendor",
+            "clean": false
+        },
+        "files": {
+            "css": "bootstrap/dist/css",
+	    "fonts": "bootstrap/dist/fonts"
+        }
+    }
+}

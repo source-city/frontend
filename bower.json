@@ -2,9 +2,9 @@
   "name": "temp",
   "version": "0.0.0",
   "dependencies": {
-    "threejs": "",
     "requirejs": "~2.1.9",
     "underscore": "^1.8.3",
-    "jquery": "^2.2.2"
+    "jquery": "^2.2.2",
+    "virtual-dom": "^2.1.1"
   }
 }

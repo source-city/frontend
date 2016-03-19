@@ -30,9 +30,9 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/FlyControls'], func
     controls = new FlyControls(camera);
     controls.movementSpeed = 500;
     controls.domElement = container;
-    controls.rollSpeed = Math.PI / 24;
+    controls.rollSpeed = Math.PI / 12;
     controls.autoForward = false;
-    controls.dragToLook = false;
+    controls.dragToLook = true;
 
     renderer = new THREE.WebGLRenderer({
       antialias: true
