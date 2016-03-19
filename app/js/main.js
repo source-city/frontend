@@ -14,7 +14,7 @@ requirejs.config({
   }
 });
 
-require(['city-architect', 'vendor/jquery'], function (cityArchitect, $) {
+require(['city-architect', 'vendor/jquery', 'vendor/underscore'], function (cityArchitect, $, _) {
 
 //  var data = [
 //    {
@@ -33,8 +33,8 @@ require(['city-architect', 'vendor/jquery'], function (cityArchitect, $) {
         return {
           foundations : fileMetrics.metrics.dependencies,
           height : fileMetrics.metrics.loc
-        }
-      })
+        };
+      });
       var city = cityArchitect.buildCity(cityData);
       document.body.appendChild(city);
     });
