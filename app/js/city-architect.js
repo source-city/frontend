@@ -14,11 +14,12 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         _(layout(data)).each(function (b) {
             city.addBuilding(b);
         });
+        city.addFloor();
 
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-        camera.position.z = 1000;
-        camera.position.x = 500;
-        camera.position.y = 1000;
+        camera.position.z = 0;
+        camera.position.x = 3000;
+        camera.position.y = 3000;
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         var container = document.createElement('div');
@@ -27,7 +28,8 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
             antialias : true
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0xf5f5f5);
+//        renderer.setClearColor(0xf5f5f5);
+        renderer.setClearColor(0xf0f0ff);
         var light = new THREE.AmbientLight(0x404040); // soft white light
         light.castShadow = true;
         city.scene.add(light);

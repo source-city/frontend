@@ -1,4 +1,4 @@
-define(['vendor/three'], function (THREE) {
+define(['vendor/three', 'vendor/underscore'], function (THREE, _) {
 
 
   return city;
@@ -6,19 +6,9 @@ define(['vendor/three'], function (THREE) {
   function city() {
 
     var scene = new THREE.Scene();
-      scene.fog = new THREE.Fog(0xffffff, 300, 5000);
-
-    var geometry, material, buildings = [];
-
-    geometry = new THREE.BoxGeometry(8000, 10, 8000);
-    material = new THREE.MeshLambertMaterial({
-      color: 0x666666
-    });
-
-    var floor = new THREE.Mesh(geometry, material);
-    floor.receiveShadow = true;
-    floor.translateY(-10);
-    scene.add(floor);
+    scene.fog = new THREE.Fog(0xffffff, 1000, 5000);
+    var buildings = [];
+    var max = 100;
 
     function addBuilding(building) {
 
@@ -37,10 +27,35 @@ define(['vendor/three'], function (THREE) {
       mesh.building = building;
       buildings.push(mesh);
       scene.add(mesh);
+      
+    }
+    
+    function addFloor() {
+      
+        var maxValue = _(buildings).max(max);
+      
+        function max(b){
+          return Math.max(Math.abs(b.building.x), Math.abs(b.building.y)) + b.building.foundations/2;
+        }
+      
+        console.log('max', max(maxValue));
+      
+        var geometry, material;
+      
+        geometry = new THREE.BoxGeometry(max(maxValue)*2.4, 10, max(maxValue)*2.4);
+        material = new THREE.MeshLambertMaterial({
+          color: 0xcccccc
+        });
+
+        var floor = new THREE.Mesh(geometry, material);
+        floor.receiveShadow = true;
+        floor.translateY(-10);
+        scene.add(floor);
     }
 
     return {
       scene : scene,
+      addFloor : addFloor,
       addBuilding : addBuilding,
       buildings : buildings
     };
