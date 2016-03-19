@@ -1,4 +1,4 @@
-define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls'], function (THREE, _, City, TrackballControls) {
+define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls', 'vendor/jquery'], function (THREE, _, City, TrackballControls, $) {
 
     return {
         buildCity : buildCity
@@ -14,6 +14,8 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         _(layout(data)).each(function (b) {
             city.addBuilding(b);
         });
+        $('#viewer-progress-bar').addClass('hide');
+        $('#city-viewer').removeClass('hide');
 
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
         camera.position.z = 1000;
@@ -22,7 +24,7 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         var container = document.createElement('div');
-        
+
         renderer = new THREE.WebGLRenderer({
             antialias : true
         });
@@ -45,7 +47,7 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false);
 
         return container;
-      
+
         function animate() {
 
             requestAnimationFrame(animate);
