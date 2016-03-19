@@ -16,11 +16,11 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
       var tree, element;
 
       $('.showNewCity').click(function () {
-        $('#newCityModal').show().toggleClass('fade');
+        $('#newCityModal').show();
       });
 
       $('.closeCityModal').click(function () {
-        $('#newCityModal').toggleClass('fade').hide();
+        $('#newCityModal').hide();
       });
 
       $('.buildCity').click(function () {
@@ -32,7 +32,7 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
             name: $('input.name').val()
           })
         }).done(function () {
-          $('#newCityModal').toggleClass('fade').hide();
+          $('#newCityModal').hide();
         });
       });
 
@@ -124,7 +124,7 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
 
           function actions() {
             return h('div.col-md-4.actions', [
-              h('a.btn.btn-primary', { href: '#/city/' + city.id},
+              h('a.btn.btn-link', { href: '#/city/' + city.id},
                 [h('i.glyphicon.glyphicon-eye-open'), ' Visit this city'])
             ]);
           }
