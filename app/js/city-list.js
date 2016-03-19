@@ -6,7 +6,7 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
 
       $('#city-viewer').empty().addClass('hide');
       $('#city-list').removeClass('hide');
-      
+
       var createElement = virtualDom.create;
       var h = virtualDom.h;
       var diff = virtualDom.diff;
@@ -38,7 +38,7 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
 
       $.get('http://source-city.herokuapp.com/api/repositories')
         .done(function (data) {
-          cityList = data;
+          cityList = _(data).reverse();
           update(cityList);
           updates();
         });
@@ -55,7 +55,7 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
           } else {
             console.log('wrong', city);
             console.log(progress.id);
-            cityList.push(progress);
+            cityList.unshift(progress);
           }
           update(cityList);
         };
