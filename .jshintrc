@@ -19,6 +19,7 @@
         "requirejs": false,
         "require": false,
         "define": false,
-        "requestAnimationFrame": false
+        "requestAnimationFrame": false,
+        "EventSource" : false
     }
 }
