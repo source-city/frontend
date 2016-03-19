@@ -96,7 +96,7 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         };
         var directions = [left, up, right, down];
         var direction = left;
-        var i = 0;
+        var i;
 
         data = _(data).sortBy(function (b) {
             return -b.foundations * b.height;
@@ -124,21 +124,26 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
             }
 
             var n = data[i];
-            var delta = (data[branch].foundations / 2 + n.foundations / 2) * 1.6;
+            var lastPlacedBuilding = data[branch];
+            var lastPoint = {
+                x : lastPlacedBuilding.x,
+                y : lastPlacedBuilding.y
+            };
+            var delta = (lastPlacedBuilding.foundations / 2 + n.foundations / 2) * 1.6;
 
             var nextDirection = turnForward(direction);
             var prevDirection = turnBackward(direction);
             var sameDirection = direction;
 
-            if (isValidLocationFor(n, nextDirection(point, delta))) {
+            if (isValidLocationFor(n, nextDirection(lastPoint, delta))) {
                 direction = nextDirection;
-                return direction(point, delta);
-            } else if (isValidLocationFor(n, sameDirection(point, delta))) {
+                return direction(lastPoint, delta);
+            } else if (isValidLocationFor(n, sameDirection(lastPoint, delta))) {
                 direction = sameDirection;
-                return direction(point, delta);
-            } else if (isValidLocationFor(n, prevDirection(point, delta))) {
+                return direction(lastPoint, delta);
+            } else if (isValidLocationFor(n, prevDirection(lastPoint, delta))) {
                 direction = prevDirection;
-                return direction(point, delta);
+                return direction(lastPoint, delta);
             } else {
                 direction = prevDirection;
                 return findNextValidPoint(branch - 1, i);
