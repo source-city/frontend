@@ -20,13 +20,19 @@ requirejs.config({
 
 require(['city-list', 'city-viewer'], function (cityList, cityViewer) {
 
-  var hash = window.location.hash;
-  var cityId = /#\/city\/(.+)/;
+  $(window).on('hashchange', route);
   
-  if(cityId.test(hash)){
-    cityViewer.loadCity(cityId.group(1));
-  } else {
-    cityList.loadCities();
+  route();
+  
+  function route(){
+    var hash = window.location.hash;
+    var cityId = /#\/city\/(.+)/;
+
+    if(cityId.test(hash)){
+      cityViewer.loadCity(cityId.exec(hash)[1]);
+    } else {
+      cityList.loadCities();
+    }
   }
   
 });

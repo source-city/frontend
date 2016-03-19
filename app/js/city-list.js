@@ -1,8 +1,12 @@
 define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($, _, virtualDom) {
 
   return {
+
     loadCities: function () {
 
+      $("#city-viewer").empty().addClass('hide');
+      $("#city-list").removeClass('hide');
+      
       var createElement = virtualDom.create;
       var h = virtualDom.h;
       var diff = virtualDom.diff;
@@ -64,7 +68,7 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
         if (!tree) {
           tree = newtree;
           element = createElement(tree);
-          $('#repositories').append(element);
+          $('#repositories').empty().append(element);
         } else {
           patch(element, diff(tree, newtree));
           tree = newtree;
@@ -73,25 +77,23 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
 
       function render(data) {
 
-        return h('div.list-group',
-          $.map(data, city)
-        );
+        return h('div.list-group', $.map(data, city));
 
         function city(city) {
           return h('a.list-group-item', [
-        h('div.row', [
-          label(),
-          ready(),
+            h('div.row', [
+              label(),
+              ready(),
               ((city.processed && city.processed !== city.total) ? progress() : actions())
-        ])
-      ]);
+            ])
+          ]);
 
           function label() {
             return h('div.col-md-5', [
-          h('h4.list-group-item-heading', [city.name]),
-          h('p.list-group-item-text', [city.url])
-        ]);
-          }
+              h('h4.list-group-item-heading', [city.name]),
+              h('p.list-group-item-text', [city.url])
+              ]);
+            }
 
           function ready() {
 
@@ -101,8 +103,8 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
             }
 
             return h('div.col-md-3', [
-          h('h4.list-group-item-heading.status', [status])
-        ]);
+                h('h4.list-group-item-heading.status', [status])
+              ]);
           }
 
           function progress() {
@@ -110,29 +112,24 @@ define(['vendor/jquery', 'vendor/underscore', 'vendor/virtual-dom'], function ($
             var percentage = (city.processed * 100 / city.total).toFixed(0);
 
             return h('div.col-md-4.actions', [
-          h('div.progress', [
-            h('div.progress-bar.progress-bar-striped.active', {
-                  style: {
-                    width: percentage + '%'
-                  }
-                })
-          ])
-        ]);
+              h('div.progress', [
+                h('div.progress-bar.progress-bar-striped.active', {
+                      style: {
+                        width: percentage + '%'
+                      }
+                    })
+              ])
+            ]);
           }
 
           function actions() {
             return h('div.col-md-4.actions', [
-          h('span.btn.btn-primary', [
-            h('i.glyphicon.glyphicon-eye-open'),
-            ' Visit this city'
-          ])
-        ]);
+              h('a.btn.btn-primary', { href: '#/city/' + city.id},
+                [h('i.glyphicon.glyphicon-eye-open'), ' Visit this city'])
+            ]);
           }
         }
-
       }
     }
-  }
-
-
+  };
 });

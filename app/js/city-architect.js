@@ -22,7 +22,7 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         var container = document.createElement('div');
-        document.body.appendChild(container);
+        
         renderer = new THREE.WebGLRenderer({
             antialias : true
         });
@@ -44,6 +44,8 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
 
         renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false);
 
+        return container;
+      
         function animate() {
 
             requestAnimationFrame(animate);
