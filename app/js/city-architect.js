@@ -72,9 +72,11 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/FlyControls'], func
       raycaster.setFromCamera(mouse, camera);
 
       var intersects = raycaster.intersectObjects(city.buildings);
+      var newLegend = '';
       if (intersects.length > 0) {
-        document.getElementById("legend").innerHTML = intersects[0].object.building.label;
+        newLegend = intersects[0].object.building.label;
       }
+      document.getElementById('legend').innerHTML = newLegend;
     }
 
   }
