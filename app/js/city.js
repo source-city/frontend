@@ -6,10 +6,11 @@ define(['vendor/three'], function (THREE) {
   function city() {
 
     var scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0xffffff, 300, 5000);
 
     var geometry, material, buildings = [];
 
-    geometry = new THREE.BoxGeometry(2000, 10, 2000);
+    geometry = new THREE.BoxGeometry(8000, 10, 8000);
     material = new THREE.MeshLambertMaterial({
       color: 0xffffff
     });
