@@ -5,6 +5,10 @@ requirejs.config({
     'vendor/three': {
       exports: 'THREE'
     },
+    'vendor/FlyControls': {
+      deps: ['vendor/three'],
+      exports: 'THREE.FlyControls'
+    },
     'vendor/underscore': {
       exports: '_'
     },
@@ -15,7 +19,7 @@ requirejs.config({
 });
 
 require(['city-architect', 'vendor/jquery', 'vendor/underscore'], function (cityArchitect, $, _) {
-
+  
 //  var data = [
 //    {
 //      label: 'com.bla.BlaBla',
@@ -26,17 +30,15 @@ require(['city-architect', 'vendor/jquery', 'vendor/underscore'], function (city
 //    }
 //  ];
 
-  $.get('http://source-city.herokuapp.com/api/metrics')
+  $.get('http://source-city.herokuapp.com/api/metrics/aHR0cHM6Ly9naXRodWIuY29tL3NvdXJjZS1jaXR5L2JhY2tlbmQuZ2l0')
     .done(function(data){
-    
-      var cityData = _(data).map(function (fileMetrics) {
+      var cityData = _(data.fileMetrics).map(function (metric) {
         return {
-          foundations : fileMetrics.metrics.dependencies,
-          height : fileMetrics.metrics.loc
+          foundations : metric.dependencies,
+          height : metric.loc
         };
       });
-      var city = cityArchitect.buildCity(cityData);
-      document.body.appendChild(city);
+      cityArchitect.buildCity(cityData);
     });
 
 });

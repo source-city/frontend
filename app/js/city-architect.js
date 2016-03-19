@@ -1,4 +1,4 @@
-define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) {
+define(['vendor/three', 'vendor/underscore', 'city', 'vendor/FlyControls'], function (THREE, _, City, FlyControls) {
 
   return {
     buildCity: buildCity
@@ -6,21 +6,33 @@ define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) 
 
   function buildCity(data) {
 
-    var camera, renderer;
+    var camera, renderer, controls;
 
     var city = new City();
     _(layout(data)).each(function(b){
       city.addBuilding(b);
     });
-
+    
+    var clock = new THREE.Clock();
+    
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
 
     camera.position.z = 1000;
     camera.position.x = 500;
     camera.position.y = 1000;
     camera.lookAt(new THREE.Vector3(0, 0, 0));
+    
+    var container = document.createElement('div');
+    document.body.appendChild( container );
+    controls = new FlyControls( camera );
+		controls.movementSpeed = 500;
+		controls.domElement = container;
+		controls.rollSpeed = Math.PI / 24;
+		controls.autoForward = false;
+		controls.dragToLook = false;
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
+    
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor( 0xf5f5f5 );
 
@@ -34,12 +46,13 @@ define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) 
     city.add(sun);
 
     animate();
-
-    return renderer.domElement;
+    
+    container.appendChild( renderer.domElement );
 
     function animate() {
 
       requestAnimationFrame(animate);
+      controls.update(clock.getDelta());
       renderer.render(city, camera);
 
     }
@@ -114,7 +127,7 @@ define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) 
     
     function isValidLocationFor(building, point){
       
-      return !_(layout).find(colliding);
+      return !_(layoutElements).find(colliding);
       
       function colliding(b){
         var a = {x: point.x, y: point.y, foundations: building.foundations};
@@ -122,6 +135,7 @@ define(['vendor/three', 'vendor/underscore', 'city'], function (THREE, _, City) 
       }
 
       function cornersOf(b){
+        
         return [
           { x: b.x - b.foundations/2, y: b.y - b.foundations/2},
           { x: b.x - b.foundations/2, y: b.y + b.foundations/2},
