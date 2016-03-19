@@ -5,6 +5,9 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
     <orderEntry type="library" name="frontend node_modules" level="project" />
+=======
+>>>>>>> d8cbb16b54da614720e310f72d0fe7d77dc11230
   </component>
 </module>
