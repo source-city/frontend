@@ -3,8 +3,8 @@ define(['vendor/jquery', 'vendor/underscore', 'city-architect'], function ($, _,
   return {
     loadCity: function (cityId) {
       
-      $("#city-viewer").removeClass('hide');
-      $("#city-list").addClass('hide');
+      $('#city-viewer').removeClass('hide');
+      $('#city-list').addClass('hide');
       
       $.get('http://source-city.herokuapp.com/api/metrics/' + cityId)
         .done(function (data) {
@@ -16,7 +16,7 @@ define(['vendor/jquery', 'vendor/underscore', 'city-architect'], function ($, _,
             };
           });
           var viewer = cityArchitect.buildCity(cityData);
-          $("#city-viewer").append(viewer);
+          $('#city-viewer').append(viewer);
         });
     }
   };
