@@ -30,12 +30,13 @@ require(['city-architect', 'vendor/jquery', 'vendor/underscore'], function (city
 //    }
 //  ];
 
-  $.get('http://source-city.herokuapp.com/api/metrics/aHR0cHM6Ly9naXRodWIuY29tL3NvdXJjZS1jaXR5L2JhY2tlbmQuZ2l0')
+  $.get('http://source-city.herokuapp.com/api/metrics/aHR0cHM6Ly9naXRodWIuY29tL3NwcmluZy1wcm9qZWN0cy9zcHJpbmctYm9vdC5naXQ=')
     .done(function(data){
       var cityData = _(data.fileMetrics).map(function (metric) {
         return {
-          foundations : metric.dependencies,
-          height : metric.loc
+          foundations : metric.dependencies * 5,
+          height : metric.loc,
+          label: metric.label
         };
       });
       cityArchitect.buildCity(cityData);
