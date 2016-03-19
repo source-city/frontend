@@ -31,7 +31,7 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         var light = new THREE.AmbientLight(0x404040); // soft white light
         light.castShadow = true;
         city.scene.add(light);
-        var sun = new THREE.DirectionalLight(0xffffff, 1.2);
+        var sun = new THREE.DirectionalLight(0xffffff, 1.0);
         sun.castShadow = true;
         sun.position.set(1, 2, 3);
         city.scene.add(sun);
