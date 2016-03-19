@@ -15,6 +15,8 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
             city.addBuilding(b);
         });
         city.addFloor();
+        $('#viewer-progress-bar').addClass('hide');
+        $('#city-viewer').removeClass('hide');
 
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
         camera.position.z = 0;
@@ -23,12 +25,11 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         var container = document.createElement('div');
-        
+
         renderer = new THREE.WebGLRenderer({
             antialias : true
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
-//        renderer.setClearColor(0xf5f5f5);
         renderer.setClearColor(0xf0f0ff);
         var light = new THREE.AmbientLight(0x404040); // soft white light
         light.castShadow = true;
@@ -48,7 +49,7 @@ define(['vendor/three', 'vendor/underscore', 'city', 'vendor/TrackballControls']
         renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false);
 
         return container;
-      
+
         function animate() {
 
             requestAnimationFrame(animate);

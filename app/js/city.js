@@ -8,7 +8,6 @@ define(['vendor/three', 'vendor/underscore'], function (THREE, _) {
     var scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xffffff, 1000, 5000);
     var buildings = [];
-    var max = 100;
 
     function addBuilding(building) {
 
@@ -37,8 +36,6 @@ define(['vendor/three', 'vendor/underscore'], function (THREE, _) {
         function max(b){
           return Math.max(Math.abs(b.building.x), Math.abs(b.building.y)) + b.building.foundations/2;
         }
-      
-        console.log('max', max(maxValue));
       
         var geometry, material;
       
